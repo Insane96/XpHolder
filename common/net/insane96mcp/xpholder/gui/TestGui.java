@@ -16,6 +16,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import scala.inline;
 
 public class TestGui extends GuiScreen{
 	private final int GUI_WIDTH = 176;
@@ -28,9 +29,16 @@ public class TestGui extends GuiScreen{
 	
 	private static int buttonId = 0;
 	
-	public TestGui() {
+	private int x, y, z;
+	public int xpHeld = 0;
+	
+	public TestGui(int x, int y, int z) {
 		GUI_TEXTURE = new ResourceLocation(XpHolder.MOD_ID, "textures/gui/xpholder.png");
 		VANILLA_TEXTURES = new ResourceLocation("textures/gui/icons.png");
+		
+		this.x = x;
+		this.y = y;
+		this.z = z;
 	}
 	
 	@Override
@@ -49,10 +57,8 @@ public class TestGui extends GuiScreen{
 	
 	@Override
 	public void updateScreen() {
-		// TODO If empty disable withdraw
+		buttonWithdraw.enabled = xpHeld > 0;
 	}
-	
-	public static int xpHeld = 0;
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -61,7 +67,6 @@ public class TestGui extends GuiScreen{
 		minecraft.getTextureManager().bindTexture(GUI_TEXTURE);
 		int offsetScreenLeft = (width - GUI_WIDTH) / 2;
 		int offsetScreenTop = (height - GUI_HEIGHT) / 2;
-		//System.out.println(width + " " + height + " " + offsetScreenLeft + " " + offsetScreenTop);
 		drawTexturedModalRect(offsetScreenLeft, offsetScreenTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
 		
 		//Draw XP Bar
@@ -71,7 +76,7 @@ public class TestGui extends GuiScreen{
         if (cap > 0)
         {
             short barWidth = 162;
-            int filled = (int)(xpHeld * (float)(barWidth + 1));
+            int filled = (int)(this.xpHeld * (float)(barWidth + 1));
             int top = height - 32 + 3;
             drawTexturedModalRect((width / 2) - (GUI_WIDTH / 2) + 7, (height / 2) - (GUI_HEIGHT / 2) + 13, 0, 82, barWidth, 5);
 
@@ -93,7 +98,6 @@ public class TestGui extends GuiScreen{
         fontRenderer.drawString(text, x, y - 1, 0);
         fontRenderer.drawString(text, x, y, color);
         
-		
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 	
@@ -105,9 +109,8 @@ public class TestGui extends GuiScreen{
 			
 		}
 		else if (button.equals(buttonDeposit)){
-			PacketHandler.SendToServer(new DepositMessage(2, /*MissingPos*/null));
+			PacketHandler.SendToServer(new DepositMessage(2, new BlockPos(x, y, z)));
 		}
-		super.actionPerformed(button);
 	}
 	
     @Override

@@ -19,12 +19,14 @@ public class GetXpHeldMessageHandler implements IMessageHandler<GetXpHeldMessage
 		
 		//GetXpHeldResponse response = new GetXpHeldResponse(0, pos);
 		
+		TestGui testGui = null;
+		
 		TileEntity tileEntity = world.getTileEntity(pos);
 		TileEntityXpHolder xpHolder;
 		if (tileEntity instanceof TileEntityXpHolder) {
 			xpHolder = (TileEntityXpHolder)tileEntity;
 			//response.xpHeld = xpHolder.xpHeld;
-			TestGui.xpHeld = xpHolder.xpHeld;
+			testGui.xpHeld = xpHolder.xpHeld; //Get current gui?
 		}
 		
 		return null;

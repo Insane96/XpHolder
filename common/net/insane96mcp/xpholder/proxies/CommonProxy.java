@@ -27,8 +27,4 @@ public class CommonProxy {
 	public void PostInit(FMLPostInitializationEvent event) {
 		Config.SaveConfig();
 	}
-	
-	public void openTestGui() {
-		
-	}
 }

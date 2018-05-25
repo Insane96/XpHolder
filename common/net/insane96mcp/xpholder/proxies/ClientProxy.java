@@ -22,9 +22,4 @@ public class ClientProxy extends CommonProxy{
 	public void PostInit(FMLPostInitializationEvent event) {
 		super.PostInit(event);
 	}
-	
-	@Override
-	public void openTestGui() {
-		Minecraft.getMinecraft().displayGuiScreen(new TestGui());
-	}
 }
