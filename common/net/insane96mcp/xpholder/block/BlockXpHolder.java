@@ -5,10 +5,10 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.insane96mcp.xpholder.XpHolder;
-import net.insane96mcp.xpholder.gui.GuiHandler;
 import net.insane96mcp.xpholder.lib.Names;
 import net.insane96mcp.xpholder.tileentity.TileEntityXpHolder;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -23,8 +23,7 @@ import net.minecraft.world.World;
 public class BlockXpHolder extends BlockContainer{
 
 	public BlockXpHolder() {
-		super(Material.IRON);
-		
+		super(Material.IRON, MapColor.GREEN);
 	}
 	
 	@Override
@@ -40,8 +39,8 @@ public class BlockXpHolder extends BlockContainer{
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		playerIn.openGui(XpHolder.instance, GuiHandler.XP_HOLDER_GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
-		//XpHolder.proxy.openTestGui();
+        
+		XpHolder.proxy.openGui(pos.getX(), pos.getY(), pos.getZ());
 		
 		return true;
 	}

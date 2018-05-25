@@ -2,6 +2,8 @@ package net.insane96mcp.xpholder.gui;
 
 import java.io.IOException;
 
+import javax.annotation.Untainted;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -9,6 +11,7 @@ import com.jcraft.jogg.Packet;
 
 import net.insane96mcp.xpholder.XpHolder;
 import net.insane96mcp.xpholder.network.DepositMessage;
+import net.insane96mcp.xpholder.network.GetXpHeldMessage;
 import net.insane96mcp.xpholder.network.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -31,6 +34,9 @@ public class TestGui extends GuiScreen{
 	
 	private int x, y, z;
 	public int xpHeld = 0;
+	public int levelsHeld = 0;
+	public int xpCap = 0;
+	public float currentLevelXp = 0;
 	
 	public TestGui(int x, int y, int z) {
 		GUI_TEXTURE = new ResourceLocation(XpHolder.MOD_ID, "textures/gui/xpholder.png");
@@ -53,6 +59,8 @@ public class TestGui extends GuiScreen{
 		
 		buttonDeposit = new GuiButton(buttonId++, (width / 2) + (GUI_WIDTH / 2) - 84, (height / 2) + (GUI_HEIGHT / 2) - 24, 80, 20, "Deposit");
 		buttonList.add(buttonDeposit);
+		
+		GetExperienceData();
 	}
 	
 	@Override
@@ -70,13 +78,13 @@ public class TestGui extends GuiScreen{
 		drawTexturedModalRect(offsetScreenLeft, offsetScreenTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
 		
 		//Draw XP Bar
-		int cap = minecraft.player.xpBarCap();
+		int cap = this.xpCap;
         int left = width / 2 - 91;
         
         if (cap > 0)
         {
             short barWidth = 162;
-            int filled = (int)(this.xpHeld * (float)(barWidth + 1));
+            int filled = (int)(this.currentLevelXp * (float)(barWidth + 1));
             int top = height - 32 + 3;
             drawTexturedModalRect((width / 2) - (GUI_WIDTH / 2) + 7, (height / 2) - (GUI_HEIGHT / 2) + 13, 0, 82, barWidth, 5);
 
@@ -89,7 +97,7 @@ public class TestGui extends GuiScreen{
         //Draw Level number
         boolean flag1 = false;
         int color = flag1 ? 16777215 : 8453920;
-        String text = "" + mc.player.experienceLevel;
+        String text = "" + this.levelsHeld;
         int x = (width - fontRenderer.getStringWidth(text)) / 2;
         int y = (height / 2) - (GUI_HEIGHT / 2) + 7;
         fontRenderer.drawString(text, x + 1, y, 0);
@@ -110,6 +118,7 @@ public class TestGui extends GuiScreen{
 		}
 		else if (button.equals(buttonDeposit)){
 			PacketHandler.SendToServer(new DepositMessage(2, new BlockPos(x, y, z)));
+			GetExperienceData();
 		}
 	}
 	
@@ -143,5 +152,9 @@ public class TestGui extends GuiScreen{
 				drawTexturedModalRect(this.x, this.y, textureX, textureY, 11, 11);
 			}
 		}
+    }
+    
+    private void GetExperienceData() {
+    	PacketHandler.SendToServer(new GetXpHeldMessage(new BlockPos(x, y, z)));
     }
 }

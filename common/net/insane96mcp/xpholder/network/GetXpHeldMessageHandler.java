@@ -16,20 +16,20 @@ public class GetXpHeldMessageHandler implements IMessageHandler<GetXpHeldMessage
 		World world = ctx.getServerHandler().player.getEntityWorld();
 		
 		BlockPos pos = message.pos;
-		
-		//GetXpHeldResponse response = new GetXpHeldResponse(0, pos);
-		
-		TestGui testGui = null;
+
+		GetXpHeldResponse response = new GetXpHeldResponse(pos);
 		
 		TileEntity tileEntity = world.getTileEntity(pos);
 		TileEntityXpHolder xpHolder;
 		if (tileEntity instanceof TileEntityXpHolder) {
 			xpHolder = (TileEntityXpHolder)tileEntity;
-			//response.xpHeld = xpHolder.xpHeld;
-			testGui.xpHeld = xpHolder.xpHeld; //Get current gui?
+			response.xpHeld = xpHolder.xpHeld;
+			response.levelsHeld = xpHolder.levelsHeld;
+			response.xpCap = xpHolder.XpBarCap();
+			response.currentLevelXp = xpHolder.currentLevelXp;
 		}
 		
-		return null;
+		return response;
 	}
 
 }
