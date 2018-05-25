@@ -1,0 +1,16 @@
+[
+{
+  "modid": "xpholder",
+  "name": "XP Holder",
+  "description": "TODO",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://minecraft.curseforge.com/projects/xp-holder",
+  "updateUrl": "",
+  "authorList": ["Insane96MCP"],
+  "credits": "The Forge forum for help :P",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

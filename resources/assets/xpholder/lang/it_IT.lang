@@ -1,0 +1,58 @@
+item.vulcanite:vulcanite.name=Vulcanite
+item.vulcanite:vulcanite_pickaxe.name=Piccone di Vulcanite
+item.vulcanite:vulcanite_axe.name=Ascia di Vulcanite
+item.vulcanite:vulcanite_shovel.name=Pala di Vulcanite
+item.vulcanite:vulcanite_hoe.name=Zappa di Vulcanite
+item.vulcanite:vulcanite_sword.name=Spada di Vulcanite
+
+item.vulcanite:flint_and_vulcanite.name=Acciarino in Vulcanite
+
+item.vulcanite:vulcanite_helmet.name=Elmetto di Vulcanite
+item.vulcanite:vulcanite_chestplate.name=Corazza di Vulcanite
+item.vulcanite:vulcanite_leggings.name=Pantaloni di Vulcanite
+item.vulcanite:vulcanite_boots.name=Stivali di Vulcanite
+
+tile.vulcanite:vulcanite_block.name=Blocco di Vulcanite
+tile.vulcanite:vulcanite_ore.name=Vulcanite Grezza
+
+tooltip.general.shift_for_more=§7Premi MAIUSC per più informazioni
+
+tooltip.weapon.base_info.more_damage=§6Fa più danno ai mob immuni al fuoco. Aspetto di Fuoco aumenta questo danno bonus
+tooltip.weapon.adv_info.more_damage=§6Fa il §c%f%%§6 in più di danno, aumentato del §c%f%%§6 per livello di Aspetto di Fuoco
+
+tooltip.tool.base_info.more_efficient=§6Nel nether, l'attrezzo è più efficiente
+tooltip.tool.adv_info.more_efficient=§6Nel nether, l'attrezzo rompe i blocchi il §c%f%%§6 più velocemente!
+
+tooltip.armor.base_info.damage_reduction=§6Riduce il danno dalle sorgenti di calore
+tooltip.armor.adv_info.damage_reduction=§6L'armatura completa riduce il danno da sorgenti di calore del §c%f%%§6. Un pezzo di armatura riduce il danno in base a quanto materiale è stato usato per fabbricarlo.
+
+tooltip.flint_and_vulcanite.base_info.set_on_fire=§6Clicca col Tasto Destro su un mob per dargli fuoco
+tooltip.flint_and_vulcanite.adv_info.set_on_fire=§6Clicca col Tasto Destro su un mob per dargli fuoco per §c%d§6 secondi
+tooltip.flint_and_vulcanite.adv_info.damage_on_use=§6Quando usato su di un mob, l'Acciarino in Vulcanite sarà danneggiato di §c%d
+
+tooltip.vulcanite_block.base_info.set_on_fire=§6Da' fuoco ai mob che ci sono sopra
+tooltip.vulcanite_block.adv_info.set_on_fire=§6Da' fuoco ai mob che ci sono sopra per §c%d§6 secondi
+
+advancements.vulcanite.root.title=Vulcanite Mod
+advancements.vulcanite.root.description=L'inizio dell'anti calore
+
+advancements.vulcanite.ore.title=Molto caldo
+advancements.vulcanite.ore.description=Ottieni una Vulcanite Grezza. Può essere trovata sotto il livello della lava.
+
+advancements.vulcanite.vulcanite.title=Meno caldo
+advancements.vulcanite.vulcanite.description=Fondi una Vulcanite grezza per ottenere una Vulcanite
+
+advancements.vulcanite.sword.title=Gli immuni al fuoco dovrebbero fuggire
+advancements.vulcanite.sword.description=Ottieni una spada di Vulcanite
+
+advancements.vulcanite.tools.title=Sonic il porcospino nel Nether
+advancements.vulcanite.tools.description=Ottieni ogni attrezzo fatto di Vulcanite
+
+advancements.vulcanite.flint.title=Dando fuoco ai Mob
+advancements.vulcanite.flint.description=Ottieni un Acciarino in Vulcanite
+
+advancements.vulcanite.armor.title=Anti Calore
+advancements.vulcanite.armor.description=Ottieni un set completo di armatura di Vulcanite
+
+advancements.vulcanite.block.title=Da vivi a cotti
+advancements.vulcanite.block.description=Ottieni un blocco di Vulcanite
