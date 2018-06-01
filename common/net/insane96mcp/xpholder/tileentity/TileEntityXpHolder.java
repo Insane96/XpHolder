@@ -1,90 +1,84 @@
 package net.insane96mcp.xpholder.tileentity;
 
+import net.insane96mcp.xpholder.utils.Experience;
+import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityXpHolder extends TileEntity{
-	public int xpHeld;
-	public int levelsHeld;
-	public float currentLevelXp;
-	
+public class TileEntityXpHolder extends TileEntity {
+
+	public Experience experience;
+
 	private boolean isEnder;
 	
-	public TileEntityXpHolder() { }
-	
+	public boolean isLocked;
+    
+	public TileEntityXpHolder() {
+		this(false);
+	}
+
 	public TileEntityXpHolder(boolean isEnder) {
+		experience = new Experience();
 		this.isEnder = isEnder;
 	}
-	
+
 	private void FixValues() {
-	    if (xpHeld < 0)
-	    {
-	    	xpHeld = 0;
-	    }
-	    if (levelsHeld < 0)
-	    {
-	      levelsHeld = 0;
-	    }
+		if (experience.xpHeld < 0) {
+			experience.xpHeld = 0;
+		}
+		if (experience.levelsHeld < 0) {
+			experience.levelsHeld = 0;
+		}
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		xpHeld = compound.getInteger("xpholder:xpHeld");
-		levelsHeld = compound.getInteger("xpHolder:levelsHeld");
-		currentLevelXp = compound.getFloat("xpHolder:currentLevelXp");
-		isEnder = compound.getBoolean("xpHolder:isEnder");
+		experience.xpHeld = compound.getInteger("xpholder:xpHeld");
+		experience.levelsHeld = compound.getInteger("xpholder:levelsHeld");
+		experience.currentLevelXp = compound.getFloat("xpholder:currentLevelXp");
+		isEnder = compound.getBoolean("xpholder:isEnder");
 	}
-	
+
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		compound.setInteger("xpholder:xpHeld", xpHeld);
-		compound.setInteger("xpholder:levelsHeld", levelsHeld);
-		compound.setFloat("xpholder:levelsHeld", currentLevelXp);
+		super.writeToNBT(compound);
+		compound.setInteger("xpholder:xpHeld", experience.xpHeld);
+		compound.setInteger("xpholder:levelsHeld", experience.levelsHeld);
+		compound.setFloat("xpholder:currentLevelXp", experience.currentLevelXp);
 		compound.setBoolean("xpholder:isEnder", isEnder);
 		return compound;
 	}
-	
+
 	public boolean isEnderHolder() {
 		return this.isEnder;
 	}
-	
+
 	public void AddExperience(int amount) {
-		int i = Integer.MAX_VALUE - this.xpHeld;
+		if (amount < 0) {
+			Experience newExp = new Experience();
+			newExp = Experience.GetLevelsFromExperience(experience.xpHeld + amount);
+			
+			experience.xpHeld += amount;
+			experience.levelsHeld = newExp.levelsHeld;
+			experience.currentLevelXp = newExp.currentLevelXp;
 
-        if (amount > i)
-        {
-            amount = i;
-        }
+		} else {
+			int i = Integer.MAX_VALUE - experience.xpHeld;
 
-        this.currentLevelXp += (float)amount / (float)this.XpBarCap();
+			if (amount > i) {
+				amount = i;
+			}
 
-        for (this.xpHeld += amount; this.currentLevelXp >= 1.0F; this.currentLevelXp /= (float)this.XpBarCap())
-        {
-            this.currentLevelXp = (this.currentLevelXp - 1.0F) * (float)this.XpBarCap();
-            this.AddExperienceLevel(1);
-        }
-	}
-	
-	public void AddExperienceLevel(int amount) {
-		this.levelsHeld += amount;
+			experience.currentLevelXp += (float) amount / (float) Experience.XpBarCap(experience.levelsHeld);
 
-        if (this.levelsHeld < 0)
-        {
-            this.levelsHeld = 0;
-            this.currentLevelXp = 0.0F;
-            this.xpHeld = 0;
-        }
-	}
-	
-	public int XpBarCap() {
-		if (this.levelsHeld >= 30)
-        {
-            return 112 + (this.levelsHeld - 30) * 9;
-        }
-        else
-        {
-            return this.levelsHeld >= 15 ? 37 + (this.levelsHeld - 15) * 5 : 7 + this.levelsHeld * 2;
-        }
+			for (experience.xpHeld += amount; experience.currentLevelXp >= 1.0F; experience.currentLevelXp /= (float) Experience
+					.XpBarCap(experience.levelsHeld)) {
+				experience.currentLevelXp = (experience.currentLevelXp - 1.0F)
+						* (float) Experience.XpBarCap(experience.levelsHeld);
+				this.experience.levelsHeld++;
+			}
+		}
 	}
 }

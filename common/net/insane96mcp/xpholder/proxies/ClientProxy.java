@@ -1,6 +1,6 @@
 package net.insane96mcp.xpholder.proxies;
 
-import net.insane96mcp.xpholder.gui.TestGui;
+import net.insane96mcp.xpholder.gui.XpHolderGui;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -12,7 +12,7 @@ public class ClientProxy extends CommonProxy{
 	public void PreInit(FMLPreInitializationEvent event) {
 		super.PreInit(event);
 	}
-
+	
 	@Override
 	public void Init(FMLInitializationEvent event) {
 		super.Init(event);
@@ -25,6 +25,6 @@ public class ClientProxy extends CommonProxy{
 	
 	@Override
 	public void openGui(int x, int y, int z) {
-		Minecraft.getMinecraft().displayGuiScreen(new TestGui(x, y, z));
+		Minecraft.getMinecraft().displayGuiScreen(new XpHolderGui(x, y, z));
 	}
 }

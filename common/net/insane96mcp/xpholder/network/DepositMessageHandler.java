@@ -1,7 +1,9 @@
 package net.insane96mcp.xpholder.network;
 
+import net.insane96mcp.xpholder.lib.Properties;
 import net.insane96mcp.xpholder.tileentity.TileEntityXpHolder;
-import net.minecraft.client.Minecraft;
+import net.insane96mcp.xpholder.utils.Experience;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.math.BlockPos;
@@ -20,17 +22,37 @@ public class DepositMessageHandler implements IMessageHandler<DepositMessage, IM
 			
 			@Override
 			public void run() {
-				World world = ctx.getServerHandler().player.getEntityWorld();
-				int xpAmount = message.xpAmount;
+				EntityPlayerMP player = ctx.getServerHandler().player;
+				World world = player.getEntityWorld();
+				float xpAmountPercentage = message.xpAmountPercentage;
+				if (xpAmountPercentage <= 0f)
+					return;
+				
 				BlockPos pos = message.pos;
 				
 				TileEntity tileEntity = world.getTileEntity(pos);
 				TileEntityXpHolder xpHolder;
 				if (tileEntity instanceof TileEntityXpHolder) {
 					xpHolder = (TileEntityXpHolder)tileEntity;
-					xpHolder.AddExperience(xpAmount);
-
-					System.out.println(xpHolder.xpHeld);
+					
+					int xpAmount = (int) Math.ceil(player.experienceTotal * (xpAmountPercentage / 100f));
+					Experience finalExperience = Experience.GetLevelsFromExperience(xpHolder.experience.xpHeld + xpAmount);
+					int xpToAdd = 0;
+					if (finalExperience.levelsHeld > Properties.General.maxLevelsHeld) {
+						int xpDiff = Experience.GetExperienceFromLevel(Properties.General.maxLevelsHeld);
+						xpToAdd = xpDiff - xpHolder.experience.xpHeld;
+					}
+					else {
+						xpToAdd = xpAmount;
+					}
+					xpHolder.AddExperience(xpToAdd);
+					
+					Experience playerXp = Experience.GetLevelsFromExperience(player.experienceTotal - xpToAdd);
+					player.experience = playerXp.currentLevelXp;
+					player.experienceLevel = playerXp.levelsHeld;
+					player.experienceTotal = playerXp.xpHeld;
+					
+					xpHolder.markDirty();
 				}
 			}
 		});

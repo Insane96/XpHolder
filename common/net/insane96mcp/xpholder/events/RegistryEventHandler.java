@@ -1,9 +1,11 @@
 package net.insane96mcp.xpholder.events;
 
 import net.insane96mcp.xpholder.XpHolder;
+import net.insane96mcp.xpholder.enchantments.EnchantmentHolder;
 import net.insane96mcp.xpholder.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -43,5 +45,10 @@ public class RegistryEventHandler {
 			Item item = Item.getItemFromBlock(block);
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
 		}
+	}
+	
+	@SubscribeEvent
+	public static void RegisterEnchantments(RegistryEvent.Register<Enchantment> event) {
+		event.getRegistry().registerAll(EnchantmentHolder.HOLDER);
 	}
 }

@@ -13,9 +13,6 @@ public class PacketHandler {
 	
 	public static void Init() {
 		INSTANCE.registerMessage(WithdrawMessageHandler.class, WithdrawMessage.class, discriminator++, Side.SERVER);
-		INSTANCE.registerMessage(WithdrawResponseHandler.class, WithdrawResponse.class, discriminator++, Side.CLIENT);
-		INSTANCE.registerMessage(GetXpHeldMessageHandler.class, GetXpHeldMessage.class, discriminator++, Side.SERVER);
-		INSTANCE.registerMessage(GetXpHeldResponseHandler.class, GetXpHeldResponse.class, discriminator++, Side.CLIENT);
 		INSTANCE.registerMessage(DepositMessageHandler.class, DepositMessage.class, discriminator++, Side.SERVER);
 		INSTANCE.registerMessage(GetXpHeldMessageHandler.class, GetXpHeldMessage.class, discriminator++, Side.SERVER);
 		INSTANCE.registerMessage(GetXpHeldResponseHandler.class, GetXpHeldResponse.class, discriminator++, Side.CLIENT);

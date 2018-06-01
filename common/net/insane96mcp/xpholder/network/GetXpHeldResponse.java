@@ -3,7 +3,6 @@ package net.insane96mcp.xpholder.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import scala.inline;
 
 public class GetXpHeldResponse implements IMessage {
 

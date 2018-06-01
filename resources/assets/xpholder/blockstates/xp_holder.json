@@ -1,15 +1,27 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "cube_all",
-    "transform": "forge:default-block"
-  },
-  "variants": {
-    "inventory": [{
-      "textures": {
-        "all": "xpholder:blocks/xp_holder"
-      }
-    }],
-	"normal": { "model":"xpholder:xp_holder" }
-  }
+	"forge_marker": 1,
+	"defaults": {
+		"model": "cube-all",
+		"transform": "forge:default-block"
+	},
+	"variants": {
+		"facing=south": {
+			"model": "xpholder:xp_holder"
+		},
+		"facing=west": {
+			"model": "xpholder:xp_holder",
+			"y": 90
+		},
+		"facing=north": {
+			"model": "xpholder:xp_holder",
+			"y": 180
+		},
+		"facing=east": {
+			"model": "xpholder:xp_holder",
+			"y": 270
+		},
+		"inventory": {
+			"model": "xpholder:xp_holder"
+		}
+	}
 }

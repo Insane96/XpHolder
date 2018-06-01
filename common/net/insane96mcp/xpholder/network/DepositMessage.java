@@ -8,23 +8,23 @@ public class DepositMessage implements IMessage {
 
 	public DepositMessage() {}
 	
-	public int xpAmount;
+	public float xpAmountPercentage;
 	public BlockPos pos;
 	
-	public DepositMessage(int xpAmount, BlockPos pos) {
-		this.xpAmount = xpAmount;
+	public DepositMessage(float xpAmountPercentage, BlockPos pos) {
+		this.xpAmountPercentage = xpAmountPercentage;
 		this.pos = pos;
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		this.xpAmount = buf.readInt();
+		this.xpAmountPercentage = buf.readFloat();
 		this.pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(xpAmount);
+		buf.writeFloat(xpAmountPercentage);
 		buf.writeInt(pos.getX());
 		buf.writeInt(pos.getY());
 		buf.writeInt(pos.getZ());

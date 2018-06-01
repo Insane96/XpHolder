@@ -8,27 +8,23 @@ public class WithdrawMessage implements IMessage {
 
 	public WithdrawMessage() {}
 	
-	public int xpAmount;
-	public int xpLevels;
+	public float xpAmountPercentage;
 	public BlockPos pos;
 	
-	public WithdrawMessage(int xpAmount, int xpLevels, BlockPos pos) {
-		this.xpAmount = xpAmount;
-		this.xpLevels = xpLevels;
+	public WithdrawMessage(float xpAmountPercentage, BlockPos pos) {
+		this.xpAmountPercentage = xpAmountPercentage;
 		this.pos = pos;
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		this.xpAmount = buf.readInt();
-		this.xpLevels = buf.readInt();
+		this.xpAmountPercentage = buf.readFloat();
 		this.pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(xpAmount);
-		buf.writeInt(xpLevels);
+		buf.writeFloat(xpAmountPercentage);
 		buf.writeInt(pos.getX());
 		buf.writeInt(pos.getY());
 		buf.writeInt(pos.getZ());
