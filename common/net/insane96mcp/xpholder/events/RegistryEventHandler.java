@@ -3,6 +3,7 @@ package net.insane96mcp.xpholder.events;
 import net.insane96mcp.xpholder.XpHolder;
 import net.insane96mcp.xpholder.enchantments.EnchantmentHolder;
 import net.insane96mcp.xpholder.init.ModBlocks;
+import net.insane96mcp.xpholder.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.enchantment.Enchantment;
@@ -22,15 +23,16 @@ public class RegistryEventHandler {
 	//1.12 Register Items and Blocks
 	@SubscribeEvent
 	public static void RegisterBlocks(RegistryEvent.Register<Block> event) {
+		System.out.println("WTF");
 		for (Block block : ModBlocks.BLOCKS)
 			event.getRegistry().register(block);
 	}
 	
 	@SubscribeEvent
 	public static void RegisterItems(RegistryEvent.Register<Item> event) {
-		/*for (Item item : ModItems.ITEMS)
+		for (Item item : ModItems.ITEMS)
 			event.getRegistry().register(item);
-*/
+
 		for (Block block : ModBlocks.BLOCKS)
 			event.getRegistry().register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
@@ -38,9 +40,9 @@ public class RegistryEventHandler {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void RegisterModels(ModelRegistryEvent event) {
-		/*for (Item item : ModItems.ITEMS) {
+		for (Item item : ModItems.ITEMS) {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
-		}*/
+		}
 		for (Block block : ModBlocks.BLOCKS) {
 			Item item = Item.getItemFromBlock(block);
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));

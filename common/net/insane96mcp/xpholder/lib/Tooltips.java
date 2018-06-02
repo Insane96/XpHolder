@@ -12,5 +12,8 @@ public class Tooltips {
 		public static String withdraw_cost = "tooltip.xp_holder.withdraw_cost";
 		public static String withdraw = "tooltip.xp_holder.withdraw";
 		public static String deposit = "tooltip.xp_holder.deposit";
+		public static String im_enchantable = "tooltip.parts.im_enchantable";
+		public static String maxWithdraw = "tooltip.xp_holder.max_withdraw";
+		public static String experience = "tooltip.xp_holder.experience";
 	}
 }

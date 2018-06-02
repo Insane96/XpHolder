@@ -2,6 +2,7 @@ package net.insane96mcp.xpholder.network;
 
 import net.insane96mcp.xpholder.lib.Properties;
 import net.insane96mcp.xpholder.tileentity.TileEntityXpHolder;
+import net.insane96mcp.xpholder.utils.Experience;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IThreadListener;
@@ -37,7 +38,16 @@ public class WithdrawMessageHandler implements IMessageHandler<WithdrawMessage, 
 
 					int xpAmount = (int) (xpHolder.experience.xpHeld * (xpAmountPercentage / 100f));
 					xpHolder.AddExperience(-xpAmount);
-					xpAmount -= (Properties.General.xpCostOnWithdraw / 100) * xpAmount;
+					System.out.println(xpHolder.experience.xpHeld);
+					
+					int levelsAfterWithdraw = xpHolder.experience.levelsHeld - Properties.General.levelCostOnWithdraw;
+					int xp = (int) (Experience.GetExperienceFromLevel((int) levelsAfterWithdraw) + Experience.XpBarCap(xpHolder.experience.levelsHeld) * xpHolder.experience.currentLevelXp);
+					System.out.println(xp);
+					xpHolder.experience.xpHeld = xp;
+					xpHolder.experience.levelsHeld = levelsAfterWithdraw;
+					if (xpHolder.experience.levelsHeld < 0)
+						xpHolder.experience.levelsHeld = 0;
+					
 					player.addExperience(xpAmount);
 					
 					xpHolder.markDirty();

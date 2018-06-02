@@ -61,4 +61,9 @@ public class Experience{
 		}
 		return 0;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("XpHeld: %d, LevelsHeld: %d, CurrentLevelXp: %f", this.xpHeld, this.levelsHeld, this.currentLevelXp);
+	}
 }

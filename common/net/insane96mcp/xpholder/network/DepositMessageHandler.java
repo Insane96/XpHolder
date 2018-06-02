@@ -25,7 +25,7 @@ public class DepositMessageHandler implements IMessageHandler<DepositMessage, IM
 				EntityPlayerMP player = ctx.getServerHandler().player;
 				World world = player.getEntityWorld();
 				float xpAmountPercentage = message.xpAmountPercentage;
-				if (xpAmountPercentage <= 0f)
+				if (xpAmountPercentage <= 0f || xpAmountPercentage > 100f)
 					return;
 				
 				BlockPos pos = message.pos;

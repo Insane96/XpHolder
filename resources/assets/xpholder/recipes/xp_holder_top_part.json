@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"LEL",
+		"DOD",
+		" S "
+	],
+	"key": {
+		"L": {
+			"item": "minecraft:dye",
+			"data": 10
+		},
+		"E": {
+			"item": "minecraft:experience_bottle"
+		},
+		"D": {
+			"item": "minecraft:diamond"
+		},
+		"O": {
+			"item": "xpholder:obsidian_container"
+		},
+		"S": {
+			"item": "minecraft:lapis_block"
+		}
+	},
+	"result": {
+		"item": "xpholder:xp_holder_top_part"
+	}
+}

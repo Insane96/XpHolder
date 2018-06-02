@@ -2,6 +2,7 @@ package net.insane96mcp.xpholder.enchantments;
 
 import io.netty.handler.codec.AsciiHeadersEncoder.NewlineType;
 import net.insane96mcp.xpholder.XpHolder;
+import net.insane96mcp.xpholder.item.EnchantablePart;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.init.Items;
@@ -24,12 +25,14 @@ public class EnchantmentHolder extends Enchantment {
 	
 	@Override
 	public boolean canApply(ItemStack stack) {
+		if (stack.getItem() instanceof EnchantablePart)
+			return true;
 		return false;
 	}
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		if (stack.getItem().equals(Items.BOOK))
+		if (stack.getItem() instanceof EnchantablePart)
 			return true;
 		return false;
 	}
@@ -46,16 +49,16 @@ public class EnchantmentHolder extends Enchantment {
 	
 	@Override
 	public int getMaxEnchantability(int enchantmentLevel) {
-		return 15;
+		return 32;
 	}
 	
 	@Override
 	public int getMinEnchantability(int enchantmentLevel) {
-		return 40;
+		return 28;
 	}
 	
 	@Override
 	public boolean isAllowedOnBooks() {
-		return true;
+		return false;
 	}
 }

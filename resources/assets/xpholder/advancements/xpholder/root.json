@@ -1,0 +1,28 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:experience_bottle"
+        },
+        "title": {
+            "translate": "advancements.xpholder.root.title"
+        },
+        "description": {
+            "translate": "advancements.xpholder.root.description"
+        },
+        "background": "minecraft:textures/blocks/lapis_block.png",
+		"show_toast": true,
+		"announce_to_chat": false
+    },
+    "criteria": {
+        "xpholder": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:obsidian"
+                    }
+                ]
+            }
+        }
+    }
+}

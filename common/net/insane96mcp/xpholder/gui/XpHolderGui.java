@@ -23,6 +23,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import scala.xml.Elem;
 
 public class XpHolderGui extends GuiScreen{
 	private final int GUI_WIDTH = 176;
@@ -47,9 +48,6 @@ public class XpHolderGui extends GuiScreen{
 	public int levelsHeld = 0;
 	public int xpCap = 0;
 	public float currentLevelXp = 0;
-
-	private int newXp;
-	private int newPlayerXp;
 	
 	boolean isHoverWithdraw, isHoverDeposit, isHoverSlider;
 	
@@ -78,19 +76,22 @@ public class XpHolderGui extends GuiScreen{
 		buttonClose = new ButtonClose(buttonId++, (width / 2) + (GUI_WIDTH / 2) + 2, (height / 2) - (GUI_HEIGHT / 2) + 2, "");
 		buttonList.add(buttonClose);
 
-		buttonWithdraw = new GuiButton(buttonId++, (width / 2) - (GUI_WIDTH / 2) + 4, (height / 2) + (GUI_HEIGHT / 2) - 24, 80, 20, "");
+		buttonWithdraw = new GuiButton(buttonId++, (width / 2) - (GUI_WIDTH / 2) + 4, (height / 2) + (GUI_HEIGHT / 2) - 24, 80, 20, I18n.format(Tooltips.XpHolder.withdraw));
 		buttonList.add(buttonWithdraw);
 		
-		buttonDeposit = new GuiButton(buttonId++, (width / 2) + (GUI_WIDTH / 2) - 84, (height / 2) + (GUI_HEIGHT / 2) - 24, 80, 20, "");
+		buttonDeposit = new GuiButton(buttonId++, (width / 2) + (GUI_WIDTH / 2) - 84, (height / 2) + (GUI_HEIGHT / 2) - 24, 80, 20, I18n.format(Tooltips.XpHolder.deposit));
 		buttonList.add(buttonDeposit);
 		
 		sliderResponder = new SliderResponder(this);
 		sliderFormat = new SliderFormat();
-		sliderXp = new GuiSlider(sliderResponder, 0, width / 2 - 75, height / 2 - 20, "xpWithdraw", 0.0f, 100.0f, 0.0f, sliderFormat);
+		sliderXp = new GuiSlider(sliderResponder, 0, width / 2 - 75, height / 2 - 8, "xpWithdraw", 0.0f, 100.0f, 0.0f, sliderFormat);
 		buttonList.add(sliderXp);
 		
 		GetExperienceData();
 	}
+
+	Experience playerXpAfterDeposit, xpAfterDeposit;
+	Experience playerXpAfterWithdraw, xpAfterWithdraw;
 	
 	@Override
 	public void updateScreen() {
@@ -103,18 +104,13 @@ public class XpHolderGui extends GuiScreen{
 		int selectedXp = (int) (this.xpHeld * (sliderValue / 100f));
 		int selectedPlayerXp = (int) (player.experienceTotal * (sliderValue / 100f));
 
-		Experience playerXpAfterDeposit = Experience.GetLevelsFromExperience((int)(player.experienceTotal - selectedPlayerXp));
-		buttonDeposit.displayString = I18n.format(Tooltips.XpHolder.deposit) + " " + String.valueOf(player.experienceLevel - playerXpAfterDeposit.levelsHeld) + "l";
-		Experience xpAfterDeposit = Experience.GetLevelsFromExperience((int)(this.xpHeld + selectedPlayerXp));
-		newXp = xpAfterDeposit.levelsHeld;
+		playerXpAfterDeposit = Experience.GetLevelsFromExperience((int)(player.experienceTotal - selectedPlayerXp));
+		xpAfterDeposit = Experience.GetLevelsFromExperience((int)(this.xpHeld + selectedPlayerXp));
 		
-		Experience xpAfterWithdraw = Experience.GetLevelsFromExperience((int) (this.xpHeld - selectedXp));
-		buttonWithdraw.displayString = I18n.format(Tooltips.XpHolder.withdraw) + " " + String.valueOf(this.levelsHeld - xpAfterWithdraw.levelsHeld) + "l";
-		if (Properties.General.xpCostOnWithdraw > 0f) {
-			selectedXp -= (Properties.General.xpCostOnWithdraw / 100f) * selectedXp;
-		}
-		Experience playerXpAfterWithdraw = Experience.GetLevelsFromExperience((int)(player.experienceTotal + selectedXp));
-		newPlayerXp = playerXpAfterWithdraw.levelsHeld;
+		xpAfterWithdraw = Experience.GetLevelsFromExperience(this.xpHeld - selectedXp);
+		if (xpAfterWithdraw.levelsHeld >= Properties.General.levelCostOnWithdraw)
+			xpAfterWithdraw.levelsHeld -= Properties.General.levelCostOnWithdraw;
+		playerXpAfterWithdraw = Experience.GetLevelsFromExperience((int)(player.experienceTotal + selectedXp));
 	}
 	
 	@Override
@@ -145,52 +141,106 @@ public class XpHolderGui extends GuiScreen{
 				&& mouseX < buttonWithdraw.x + buttonWithdraw.width 
 				&& mouseY < buttonWithdraw.y + buttonWithdraw.height);
 		
-		if ((isHoverWithdraw || isHoverSlider) 
-				&& buttonWithdraw.enabled 
-				&& sliderValue > 0f 
-				&& this.xpHeld > 0f) {
-			text = I18n.format(Tooltips.XpHolder.withdraw_cost, Properties.General.xpCostOnWithdraw);
-			x = (width - fontRenderer.getStringWidth(text)) / 2;
-			y = (height + GUI_HEIGHT) / 2 + 6;
-			fontRenderer.drawStringWithShadow(text, x, y, 16777215);
-			
-			text = String.valueOf(minecraft.player.experienceLevel);
-	        x = (width - fontRenderer.getStringWidth(text)) / 2 - 20;
-	        y = height - 29;
-			DrawStringExperience(text, x, y);
-			
-			text = "->";
-	        x = (width - fontRenderer.getStringWidth(text)) / 2;
-	        y = height - 29;
-	        DrawStringExperience(text, x, y);
-			
-			text = String.valueOf(this.newPlayerXp);
-	        x = (width - fontRenderer.getStringWidth(text)) / 2 + 20;
-	        y = height - 29;
-			DrawStringExperience(text, x, y);
-		}
-		
 		isHoverDeposit = (mouseX >= buttonDeposit.x 
 				&& mouseY >= buttonDeposit.y 
 				&& mouseX < buttonDeposit.x + buttonDeposit.width 
 				&& mouseY < buttonDeposit.y + buttonDeposit.height);
 		
-		if ((isHoverDeposit || isHoverSlider) 
-				&& buttonDeposit.enabled 
+		if (isHoverWithdraw 
+				&& buttonWithdraw.enabled 
 				&& sliderValue > 0f 
-				&& minecraft.player.experienceTotal > 0f) {
-			if (this.newXp > Properties.General.maxLevelsHeld)
-				text = String.valueOf(100);
-			else
-				text = String.valueOf(this.newXp);
-	        x = (width - fontRenderer.getStringWidth(text)) / 2 + 20;
-	        y = (height / 2) - (GUI_HEIGHT / 2) + 5;
+				&& this.xpHeld > 0f) {
+			
+			text = I18n.format(Tooltips.XpHolder.withdraw) + ":";
+			x = (width - fontRenderer.getStringWidth(text)) / 2;
+			y = height - 42;
+			fontRenderer.drawStringWithShadow(text, x, y, 16777215);
+			
+			text = I18n.format(Tooltips.XpHolder.withdraw_cost, Properties.General.levelCostOnWithdraw);
+			if (sliderValue >= 100f)
+				text += " " + I18n.format(Tooltips.XpHolder.maxWithdraw);
+			x = (width - fontRenderer.getStringWidth(text)) / 2;
+			y = (height - GUI_HEIGHT) / 2 - 10;
+			fontRenderer.drawStringWithShadow(text, x, y, 16777215);
+			
+			text = String.valueOf(minecraft.player.experienceLevel);
+	        x = (width - fontRenderer.getStringWidth(text)) / 2 - 22;
+	        y = height - 31;
+			DrawStringExperience(text, x, y);
+			
+			text = "->";
+	        x = (width - fontRenderer.getStringWidth(text)) / 2;
+	        y = height - 31;
+	        DrawStringExperience(text, x, y);
+			
+			text = String.valueOf(this.playerXpAfterWithdraw.levelsHeld);
+	        x = (width - fontRenderer.getStringWidth(text)) / 2 + 22;
+	        y = height - 31;
+			DrawStringExperience(text, x, y);
+			
+			text = String.valueOf(this.xpAfterWithdraw.levelsHeld);
+	        x = (width - fontRenderer.getStringWidth(text)) / 2 + 22;
+	        y = (height / 2) - (GUI_HEIGHT / 2) + 14;
 			DrawStringExperience(text, x, y);
 
 			text = "->";
 	        x = (width - fontRenderer.getStringWidth(text)) / 2;
-	        y = (height / 2) - (GUI_HEIGHT / 2) + 5;
+	        y = (height / 2) - (GUI_HEIGHT / 2) + 14;
 	        fontRenderer.drawString(text, x, y, 0);
+			
+			text = I18n.format(Tooltips.XpHolder.withdraw) + ":";
+			x = (width - fontRenderer.getStringWidth(text)) / 2;
+			y = (height / 2) - (GUI_HEIGHT / 2) + 4;
+	        fontRenderer.drawString(text, x, y, 0);
+		}
+		
+		if (isHoverDeposit 
+				&& buttonDeposit.enabled 
+				&& sliderValue > 0f 
+				&& minecraft.player.experienceTotal > 0f) {
+			if (this.xpAfterDeposit.levelsHeld > Properties.General.maxLevelsHeld)
+				text = String.valueOf(Properties.General.maxLevelsHeld);
+			else
+				text = String.valueOf(this.xpAfterDeposit.levelsHeld);
+	        x = (width - fontRenderer.getStringWidth(text)) / 2 + 22;
+	        y = (height / 2) - (GUI_HEIGHT / 2) + 14;
+			DrawStringExperience(text, x, y);
+
+			text = "->";
+	        x = (width - fontRenderer.getStringWidth(text)) / 2;
+	        y = (height / 2) - (GUI_HEIGHT / 2) + 14;
+	        fontRenderer.drawString(text, x, y, 0);
+			
+			text = I18n.format(Tooltips.XpHolder.deposit) + ":";
+			x = (width - fontRenderer.getStringWidth(text)) / 2;
+			y = (height / 2) - (GUI_HEIGHT / 2) + 4;
+	        fontRenderer.drawString(text, x, y, 0);
+			
+			text = I18n.format(Tooltips.XpHolder.deposit) + ":";
+			x = (width - fontRenderer.getStringWidth(text)) / 2;
+			y = height - 42;
+			fontRenderer.drawStringWithShadow(text, x, y, 16777215);
+			
+			text = String.valueOf(minecraft.player.experienceLevel);
+	        x = (width - fontRenderer.getStringWidth(text)) / 2 - 22;
+	        y = height - 31;
+			DrawStringExperience(text, x, y);
+			
+			text = "->";
+	        x = (width - fontRenderer.getStringWidth(text)) / 2;
+	        y = height - 31;
+	        DrawStringExperience(text, x, y);
+	        
+	        if (this.xpAfterDeposit.levelsHeld > Properties.General.maxLevelsHeld) {
+				int xpDiff = Experience.GetExperienceFromLevel(Properties.General.maxLevelsHeld);
+				int xpToAdd = xpDiff - this.xpHeld;
+				text = String.valueOf(Experience.GetLevelsFromExperience(minecraft.player.experienceTotal - xpToAdd).levelsHeld);
+	        }
+			else
+				text = String.valueOf(this.playerXpAfterDeposit.levelsHeld);
+	        x = (width - fontRenderer.getStringWidth(text)) / 2 + 22;
+	        y = height - 31;
+			DrawStringExperience(text, x, y);
 		}
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
@@ -227,24 +277,23 @@ public class XpHolderGui extends GuiScreen{
         {
             short barWidth = 162;
             int filled = (int)(this.currentLevelXp * (float)(barWidth + 1));
-            int top = height - 32 + 3;
-            drawTexturedModalRect((width / 2) - (GUI_WIDTH / 2) + 7, (height / 2) - (GUI_HEIGHT / 2) + 14, 0, GUI_HEIGHT, barWidth, 5);
+            int top = (height / 2) - (GUI_HEIGHT / 2) + 23;
+            drawTexturedModalRect((width / 2) - (GUI_WIDTH / 2) + 7, top, 0, GUI_HEIGHT, barWidth, 5);
 
             if (filled > 0)
             {
-                drawTexturedModalRect((width / 2) - (GUI_WIDTH / 2) + 7, (height / 2) - (GUI_HEIGHT / 2) + 14, 0, GUI_HEIGHT + 5, filled, 5);
+                drawTexturedModalRect((width / 2) - (GUI_WIDTH / 2) + 7, top, 0, GUI_HEIGHT + 5, filled, 5);
             }
         }
         
         //Draw Level number
         String text = String.valueOf(this.levelsHeld);
         int x = (width - fontRenderer.getStringWidth(text)) / 2;
-        int y = (height / 2) - (GUI_HEIGHT / 2) + 8;
+        int y = (height / 2) - (GUI_HEIGHT / 2) + 17;
         if (sliderValue > 0f 
-        		&& Minecraft.getMinecraft().player.experienceTotal > 0 
-        		&& (isHoverDeposit || isHoverSlider) 
-        		&& buttonDeposit.enabled) {
-        	x -= 20;
+        		&& (this.xpHeld > 0 || Minecraft.getMinecraft().player.experienceTotal > 0)
+        		&& ((isHoverWithdraw && buttonWithdraw.enabled) || (isHoverDeposit && buttonDeposit.enabled))) {
+        	x -= 22;
         	y -= 3;
         }
         DrawStringExperience(text, x, y);
@@ -259,10 +308,10 @@ public class XpHolderGui extends GuiScreen{
 	}
 	
 	public boolean ShouldBarHide(ElementType type) {
-		if (type.equals(ElementType.EXPERIENCE)) {
+		if (type.equals(ElementType.EXPERIENCE) || type.equals(ElementType.HEALTH) || type.equals(ElementType.FOOD) || type.equals(ElementType.ARMOR)) {
 			if (sliderValue > 0f 
-					&& this.xpHeld > 0 
-					&& (isHoverWithdraw || isHoverSlider)) {
+					&& (this.xpHeld > 0 || Minecraft.getMinecraft().player.experienceTotal > 0) 
+					&& ((isHoverWithdraw && buttonWithdraw.enabled) || (isHoverDeposit && buttonDeposit.enabled))) {
 				return true;
 			}
 		}
@@ -321,7 +370,7 @@ public class XpHolderGui extends GuiScreen{
 
 		@Override
 		public String getText(int id, String name, float value) {
-			return "Exp: " + String.format("%.1f", value) + "%";
+			return I18n.format(Tooltips.XpHolder.experience) + ": " + String.format("%.1f", value) + "%";
 		}
     }
 }

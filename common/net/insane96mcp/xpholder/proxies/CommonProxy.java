@@ -1,13 +1,16 @@
 package net.insane96mcp.xpholder.proxies;
 
+import net.insane96mcp.xpholder.events.AnvilUpdate;
 import net.insane96mcp.xpholder.events.RenderGameOverlay;
 import net.insane96mcp.xpholder.init.ModBlocks;
+import net.insane96mcp.xpholder.item.ModItems;
 import net.insane96mcp.xpholder.lib.Config;
 import net.insane96mcp.xpholder.lib.Properties;
 import net.insane96mcp.xpholder.network.PacketHandler;
 import net.insane96mcp.xpholder.tileentity.TileEntityXpHolder;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -20,11 +23,13 @@ public class CommonProxy {
 		Properties.Init();
 		
 		ModBlocks.Init();
+		ModItems.Init();
 	}
 	
 	public void Init(FMLInitializationEvent event) {
 		ModBlocks.PostInit();
 		MinecraftForge.EVENT_BUS.register(RenderGameOverlay.class);
+		MinecraftForge.EVENT_BUS.register(AnvilUpdate.class);
 		PacketHandler.Init();
 		
 		GameRegistry.registerTileEntity(TileEntityXpHolder.class, "XpHolder");

@@ -82,10 +82,10 @@ public class BlockXpHolder extends Block{
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		TileEntityXpHolder tileEntityXpHolder = (TileEntityXpHolder) worldIn.getTileEntity(pos);
 		if (tileEntityXpHolder.experience.xpHeld > 0) {
-			int originalXpHeld =  (int) (tileEntityXpHolder.experience.xpHeld * (1f - Properties.General.xpLostOnDestroy));
-			int xpHeld = (int) (tileEntityXpHolder.experience.xpHeld * (1f - Properties.General.xpLostOnDestroy));
+			int originalXpHeld =  (int) (tileEntityXpHolder.experience.xpHeld * (1f - Properties.General.xpLostOnDestroy / 100f));
+			int xpHeld = (int) (tileEntityXpHolder.experience.xpHeld * (1f - Properties.General.xpLostOnDestroy / 100f));
 			for (int i = 0; i < 100; i++) {
-				int xpOrbValue = (int) Math.ceil(originalXpHeld / 100);
+				int xpOrbValue = (int) Math.ceil(originalXpHeld / 100f);
 				if (xpOrbValue <= 0)
 					xpOrbValue = 1;
 				EntityXPOrb xpOrb = new EntityXPOrb(worldIn, pos.getX(), pos.getY(), pos.getZ(), xpOrbValue);

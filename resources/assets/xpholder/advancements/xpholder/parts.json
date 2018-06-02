@@ -1,0 +1,29 @@
+{
+    "display": {
+        "icon": {
+            "item": "xpholder:xp_holder_top_part"
+        },
+        "title": {
+            "translate": "advancements.xpholder.parts.title"
+        },
+        "description": {
+            "translate": "advancements.xpholder.parts.description"
+        }
+    },
+    "parent": "xpholder:xpholder/root",
+    "criteria": {
+        "parts": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "xpholder:xp_holder_top_part"
+                    },
+                    {
+                        "item": "xpholder:xp_holder_bottom_part"
+                    }
+                ]
+            }
+        }
+    }
+}

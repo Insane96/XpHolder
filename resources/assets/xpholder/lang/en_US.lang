@@ -1,9 +1,25 @@
 tile.xpholder:xp_holder.name=XP Holder
+item.xpholder:xp_holder_top_part.name=Strange Container Part
+item.xpholder:xp_holder_bottom_part.name=Strange Container Part
+item.xpholder:obsidian_container.name=Obsidian Container
 
 tooltip.xp_holder.on_destroy=By destroying an XP Holder you'll lose §4%f%% §rof experience contained
-tooltip.xp_holder.base_info=Holds up to §2%d §7levels of experience
-tooltip.xp_holder.withdraw_cost=Withdraw costs §c%f%% §rof the amount withdrawn
+tooltip.xp_holder.base_info=Holds up to §2%d §7level of experience
+tooltip.xp_holder.withdraw_cost=Withdraw costs §c%d §rlevel(s)
+tooltip.xp_holder.max_withdraw=(Unless you withdraw all)
 tooltip.xp_holder.withdraw=Withdraw
 tooltip.xp_holder.deposit=Deposit
+tooltip.xp_holder.experience=Experience
+
+tooltip.parts.im_enchantable=I'm enchantable ... sometimes
 
 enchantment.holder=Holder
+
+advancements.xpholder.xp_holder.title=Experience Power
+advancements.xpholder.xp_holder.description=Merge the two Strange Container Parts in an Anvil
+
+advancements.xpholder.parts.title=Strange Container Parts
+advancements.xpholder.parts.description=Create the two Strange Container Parts
+
+advancements.xpholder.root.title=XP Holder Mod
+advancements.xpholder.root.description=Contains Experience, obiviously ...
