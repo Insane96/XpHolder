@@ -2,16 +2,21 @@ tile.xpholder:xp_holder.name=XP Holder
 item.xpholder:xp_holder_top_part.name=Strange Container Part
 item.xpholder:xp_holder_bottom_part.name=Strange Container Part
 item.xpholder:obsidian_container.name=Obsidian Container
+item.xpholder:pick_up_upgrade.name=Pick Up Upgrade
+item.xpholder:bank_upgrade.name=Bank Upgrade
 
-tooltip.xp_holder.on_destroy=By destroying an XP Holder you'll lose §4%f%% §rof experience contained
-tooltip.xp_holder.base_info=Holds up to §2%d §7level of experience
-tooltip.xp_holder.withdraw_cost=Withdraw costs §c%d §rlevel(s)
-tooltip.xp_holder.max_withdraw=(Unless you withdraw all)
-tooltip.xp_holder.withdraw=Withdraw
-tooltip.xp_holder.deposit=Deposit
-tooltip.xp_holder.experience=Experience
+translatable.xp_holder.on_destroy=By destroying an XP Holder you'll lose §4%f%% §rof experience contained
+translatable.xp_holder.base_info=Holds up to §2%d §7level of experience
+translatable.xp_holder.withdraw_cost=Withdraw costs §c%d §rlevel(s)
+translatable.xp_holder.max_withdraw=(Unless you withdraw all)
+translatable.xp_holder.withdraw=Withdraw
+translatable.xp_holder.deposit=Deposit
+translatable.xp_holder.experience=Experience
 
-tooltip.parts.im_enchantable=I'm enchantable ... sometimes
+translatable.parts.im_enchantable=I'm enchantable ... sometimes
+
+translatable.upgrade.has_bank=Upgraded with Bank
+translatable.upgrade.has_pick_up=Upgraded with Pick Up
 
 enchantment.holder=Holder
 

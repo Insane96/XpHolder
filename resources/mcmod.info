@@ -2,7 +2,7 @@
 {
   "modid": "xpholder",
   "name": "XP Holder",
-  "description": "Adds a block that contains Experience. Crafted in a unique way!",
+  "description": "Adds a block that contains Experience. Crafted in a unique way! And Upgradeable",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "https://minecraft.curseforge.com/projects/xp-holder",

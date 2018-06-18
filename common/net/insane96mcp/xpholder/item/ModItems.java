@@ -14,6 +14,9 @@ public class ModItems {
 	
 	public static EnchantablePart xpHolderTopPart;
 	public static EnchantablePart xpHolderBottomPart;
+
+	public static Upgrade pickUpUpgrade;
+	public static Upgrade bankUpgrade;
 	
 	public static ArrayList<Item> ITEMS = new ArrayList<Item>();
 	
@@ -31,5 +34,13 @@ public class ModItems {
 		xpHolderBottomPart = new EnchantablePart(new ResourceLocation(XpHolder.MOD_ID, Names.XP_HOLDER_BOTTOM_PART), CreativeTabs.MISC);
 		xpHolderBottomPart.setUnlocalizedName(XpHolder.RESOURCE_PREFIX + Names.XP_HOLDER_BOTTOM_PART);
 		ITEMS.add(xpHolderBottomPart);
+		
+		pickUpUpgrade = new Upgrade(new ResourceLocation(XpHolder.MOD_ID, Names.PICK_UP_UPGRADE), CreativeTabs.MISC);
+		pickUpUpgrade.setUnlocalizedName(XpHolder.RESOURCE_PREFIX + Names.PICK_UP_UPGRADE);
+		ITEMS.add(pickUpUpgrade);
+		
+		bankUpgrade = new Upgrade(new ResourceLocation(XpHolder.MOD_ID, Names.BANK_UPGRADE), CreativeTabs.MISC);
+		bankUpgrade.setUnlocalizedName(XpHolder.RESOURCE_PREFIX + Names.BANK_UPGRADE);
+		ITEMS.add(bankUpgrade);
 	}
 }

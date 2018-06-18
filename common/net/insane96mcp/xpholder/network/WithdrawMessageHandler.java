@@ -38,11 +38,10 @@ public class WithdrawMessageHandler implements IMessageHandler<WithdrawMessage, 
 
 					int xpAmount = (int) (xpHolder.experience.xpHeld * (xpAmountPercentage / 100f));
 					xpHolder.AddExperience(-xpAmount);
-					System.out.println(xpHolder.experience.xpHeld);
 					
 					int levelsAfterWithdraw = xpHolder.experience.levelsHeld - Properties.General.levelCostOnWithdraw;
 					int xp = (int) (Experience.GetExperienceFromLevel((int) levelsAfterWithdraw) + Experience.XpBarCap(xpHolder.experience.levelsHeld) * xpHolder.experience.currentLevelXp);
-					System.out.println(xp);
+					
 					xpHolder.experience.xpHeld = xp;
 					xpHolder.experience.levelsHeld = levelsAfterWithdraw;
 					if (xpHolder.experience.levelsHeld < 0)

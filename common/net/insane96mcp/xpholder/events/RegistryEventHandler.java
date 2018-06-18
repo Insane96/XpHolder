@@ -51,6 +51,6 @@ public class RegistryEventHandler {
 	
 	@SubscribeEvent
 	public static void RegisterEnchantments(RegistryEvent.Register<Enchantment> event) {
-		event.getRegistry().registerAll(EnchantmentHolder.HOLDER);
+		event.getRegistry().registerAll(EnchantmentHolder.ENCHANTMENT);
 	}
 }

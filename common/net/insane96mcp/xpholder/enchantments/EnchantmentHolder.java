@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 
 public class EnchantmentHolder extends Enchantment {
 
-	public static EnchantmentHolder HOLDER = new EnchantmentHolder();
+	public static EnchantmentHolder ENCHANTMENT = new EnchantmentHolder();
 	
 	protected EnchantmentHolder(Rarity rarityIn, EnumEnchantmentType typeIn, EntityEquipmentSlot[] slots) {
 		super(rarityIn, typeIn, slots);

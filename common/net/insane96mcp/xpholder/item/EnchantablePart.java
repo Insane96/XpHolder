@@ -3,7 +3,7 @@ package net.insane96mcp.xpholder.item;
 import java.util.List;
 
 import net.insane96mcp.xpholder.enchantments.EnchantmentHolder;
-import net.insane96mcp.xpholder.lib.Tooltips;
+import net.insane96mcp.xpholder.lib.Translatable;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -23,12 +23,12 @@ public class EnchantablePart extends Item {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if (!stack.isItemEnchanted())
-			tooltip.add(I18n.format(Tooltips.XpHolder.im_enchantable));
+			tooltip.add(I18n.format(Translatable.XpHolder.im_enchantable));
 	}
 	
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-		if (stack.getItem() instanceof EnchantablePart && enchantment.equals(EnchantmentHolder.HOLDER)) {
+		if (stack.getItem() instanceof EnchantablePart && enchantment.equals(EnchantmentHolder.ENCHANTMENT)) {
 			return true;
 		}
 		return false;

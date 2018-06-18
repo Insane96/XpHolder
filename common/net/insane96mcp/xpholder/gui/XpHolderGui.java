@@ -7,11 +7,12 @@ import org.lwjgl.opengl.GL11;
 
 import net.insane96mcp.xpholder.XpHolder;
 import net.insane96mcp.xpholder.lib.Properties;
-import net.insane96mcp.xpholder.lib.Tooltips;
+import net.insane96mcp.xpholder.lib.Translatable;
 import net.insane96mcp.xpholder.network.DepositMessage;
 import net.insane96mcp.xpholder.network.GetXpHeldMessage;
 import net.insane96mcp.xpholder.network.PacketHandler;
 import net.insane96mcp.xpholder.network.WithdrawMessage;
+import net.insane96mcp.xpholder.tileentity.TileEntityXpHolder;
 import net.insane96mcp.xpholder.utils.Experience;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -22,6 +23,7 @@ import net.minecraft.client.gui.GuiSlider;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import scala.xml.Elem;
 
@@ -48,6 +50,7 @@ public class XpHolderGui extends GuiScreen{
 	public int levelsHeld = 0;
 	public int xpCap = 0;
 	public float currentLevelXp = 0;
+	//public int
 	
 	boolean isHoverWithdraw, isHoverDeposit, isHoverSlider;
 	
@@ -76,10 +79,10 @@ public class XpHolderGui extends GuiScreen{
 		buttonClose = new ButtonClose(buttonId++, (width / 2) + (GUI_WIDTH / 2) + 2, (height / 2) - (GUI_HEIGHT / 2) + 2, "");
 		buttonList.add(buttonClose);
 
-		buttonWithdraw = new GuiButton(buttonId++, (width / 2) - (GUI_WIDTH / 2) + 4, (height / 2) + (GUI_HEIGHT / 2) - 24, 80, 20, I18n.format(Tooltips.XpHolder.withdraw));
+		buttonWithdraw = new GuiButton(buttonId++, (width / 2) - (GUI_WIDTH / 2) + 4, (height / 2) + (GUI_HEIGHT / 2) - 24, 80, 20, I18n.format(Translatable.XpHolder.withdraw));
 		buttonList.add(buttonWithdraw);
 		
-		buttonDeposit = new GuiButton(buttonId++, (width / 2) + (GUI_WIDTH / 2) - 84, (height / 2) + (GUI_HEIGHT / 2) - 24, 80, 20, I18n.format(Tooltips.XpHolder.deposit));
+		buttonDeposit = new GuiButton(buttonId++, (width / 2) + (GUI_WIDTH / 2) - 84, (height / 2) + (GUI_HEIGHT / 2) - 24, 80, 20, I18n.format(Translatable.XpHolder.deposit));
 		buttonList.add(buttonDeposit);
 		
 		sliderResponder = new SliderResponder(this);
@@ -151,14 +154,14 @@ public class XpHolderGui extends GuiScreen{
 				&& sliderValue > 0f 
 				&& this.xpHeld > 0f) {
 			
-			text = I18n.format(Tooltips.XpHolder.withdraw) + ":";
+			text = I18n.format(Translatable.XpHolder.withdraw) + ":";
 			x = (width - fontRenderer.getStringWidth(text)) / 2;
 			y = height - 42;
 			fontRenderer.drawStringWithShadow(text, x, y, 16777215);
 			
-			text = I18n.format(Tooltips.XpHolder.withdraw_cost, Properties.General.levelCostOnWithdraw);
+			text = I18n.format(Translatable.XpHolder.withdraw_cost, Properties.General.levelCostOnWithdraw);
 			if (sliderValue >= 100f)
-				text += " " + I18n.format(Tooltips.XpHolder.maxWithdraw);
+				text += " " + I18n.format(Translatable.XpHolder.maxWithdraw);
 			x = (width - fontRenderer.getStringWidth(text)) / 2;
 			y = (height - GUI_HEIGHT) / 2 - 10;
 			fontRenderer.drawStringWithShadow(text, x, y, 16777215);
@@ -188,7 +191,7 @@ public class XpHolderGui extends GuiScreen{
 	        y = (height / 2) - (GUI_HEIGHT / 2) + 14;
 	        fontRenderer.drawString(text, x, y, 0);
 			
-			text = I18n.format(Tooltips.XpHolder.withdraw) + ":";
+			text = I18n.format(Translatable.XpHolder.withdraw) + ":";
 			x = (width - fontRenderer.getStringWidth(text)) / 2;
 			y = (height / 2) - (GUI_HEIGHT / 2) + 4;
 	        fontRenderer.drawString(text, x, y, 0);
@@ -211,12 +214,12 @@ public class XpHolderGui extends GuiScreen{
 	        y = (height / 2) - (GUI_HEIGHT / 2) + 14;
 	        fontRenderer.drawString(text, x, y, 0);
 			
-			text = I18n.format(Tooltips.XpHolder.deposit) + ":";
+			text = I18n.format(Translatable.XpHolder.deposit) + ":";
 			x = (width - fontRenderer.getStringWidth(text)) / 2;
 			y = (height / 2) - (GUI_HEIGHT / 2) + 4;
 	        fontRenderer.drawString(text, x, y, 0);
 			
-			text = I18n.format(Tooltips.XpHolder.deposit) + ":";
+			text = I18n.format(Translatable.XpHolder.deposit) + ":";
 			x = (width - fontRenderer.getStringWidth(text)) / 2;
 			y = height - 42;
 			fontRenderer.drawStringWithShadow(text, x, y, 16777215);
@@ -241,6 +244,20 @@ public class XpHolderGui extends GuiScreen{
 	        x = (width - fontRenderer.getStringWidth(text)) / 2 + 22;
 	        y = height - 31;
 			DrawStringExperience(text, x, y);
+		}
+
+		TileEntityXpHolder holder = (TileEntityXpHolder) minecraft.player.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+		if (holder.HasBankUpgrade()) {
+			text = I18n.format(Translatable.Upgrade.has_bank);
+			x = (width - fontRenderer.getStringWidth(text)) / 2;
+			y = (height - GUI_HEIGHT) / 2 - fontRenderer.FONT_HEIGHT;
+			fontRenderer.drawStringWithShadow(text, x, y, 16777215);
+		}
+		else if (holder.HasPickUpUpgrade()) {
+			text = I18n.format(Translatable.Upgrade.has_pick_up);
+			x = (width - fontRenderer.getStringWidth(text)) / 2;
+			y = (height - GUI_HEIGHT) / 2 - fontRenderer.FONT_HEIGHT;
+			fontRenderer.drawStringWithShadow(text, x, y, 16777215);
 		}
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
@@ -370,7 +387,7 @@ public class XpHolderGui extends GuiScreen{
 
 		@Override
 		public String getText(int id, String name, float value) {
-			return I18n.format(Tooltips.XpHolder.experience) + ": " + String.format("%.1f", value) + "%";
+			return I18n.format(Translatable.XpHolder.experience) + ": " + String.format("%.1f", value) + "%";
 		}
     }
 }
