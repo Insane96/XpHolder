@@ -5,22 +5,10 @@
 		"transform": "forge:default-block"
 	},
 	"variants": {
-		"facing=south,has_bank_upgrade=false,has_pick_up_upgrade=false": { "model": "xpholder:xp_holder" },
-		"facing=west,has_bank_upgrade=false,has_pick_up_upgrade=false": { "model": "xpholder:xp_holder", "y": 90 },
-		"facing=north,has_bank_upgrade=false,has_pick_up_upgrade=false": { "model": "xpholder:xp_holder", "y": 180 },
-		"facing=east,has_bank_upgrade=false,has_pick_up_upgrade=false": { "model": "xpholder:xp_holder", "y": 270 },
-		"facing=south,has_bank_upgrade=true,has_pick_up_upgrade=false": { "model": "xpholder:xp_holder_bank" },
-		"facing=west,has_bank_upgrade=true,has_pick_up_upgrade=false": { "model": "xpholder:xp_holder_bank", "y": 90 },
-		"facing=north,has_bank_upgrade=true,has_pick_up_upgrade=false": { "model": "xpholder:xp_holder_bank", "y": 180 },
-		"facing=east,has_bank_upgrade=true,has_pick_up_upgrade=false": { "model": "xpholder:xp_holder_bank", "y": 270 },
-		"facing=south,has_bank_upgrade=false,has_pick_up_upgrade=true": { "model": "xpholder:xp_holder_pick_up" },
-		"facing=west,has_bank_upgrade=false,has_pick_up_upgrade=true": { "model": "xpholder:xp_holder_pick_up", "y": 90 },
-		"facing=north,has_bank_upgrade=false,has_pick_up_upgrade=true": { "model": "xpholder:xp_holder_pick_up", "y": 180 },
-		"facing=east,has_bank_upgrade=false,has_pick_up_upgrade=true": { "model": "xpholder:xp_holder_pick_up", "y": 270 },
-		"facing=south,has_bank_upgrade=true,has_pick_up_upgrade=true": { "model": "xpholder:xp_holder" },
-		"facing=west,has_bank_upgrade=true,has_pick_up_upgrade=true": { "model": "xpholder:xp_holder", "y": 90 },
-		"facing=north,has_bank_upgrade=true,has_pick_up_upgrade=true": { "model": "xpholder:xp_holder", "y": 180 },
-		"facing=east,has_bank_upgrade=true,has_pick_up_upgrade=true": { "model": "xpholder:xp_holder", "y": 270 },
+		"facing=south": { "model": "xpholder:xp_holder" },
+		"facing=west": { "model": "xpholder:xp_holder", "y": 90 },
+		"facing=north": { "model": "xpholder:xp_holder", "y": 180 },
+		"facing=east": { "model": "xpholder:xp_holder", "y": 270 },
 		"inventory": { "model": "xpholder:xp_holder" }
 	}
 }

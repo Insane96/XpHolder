@@ -1,19 +1,19 @@
 package net.insane96mcp.xpholder.utils;
 
 public class Experience{
-	public int xpHeld;
-	public int levelsHeld;
+	public int xp;
+	public int levels;
 	public float currentLevelXp;
 	
 	public Experience() {
-		this.xpHeld = 0;
-		this.levelsHeld = 0;
+		this.xp = 0;
+		this.levels = 0;
 		this.currentLevelXp = 0;
 	}
 	
 	public Experience(int xpHeld, int levelsHeld, float currentLevelXp) {
-		this.xpHeld = xpHeld;
-		this.levelsHeld = levelsHeld;
+		this.xp = xpHeld;
+		this.levels = levelsHeld;
 		this.currentLevelXp = currentLevelXp;
 	}
 	
@@ -31,19 +31,19 @@ public class Experience{
 	public static Experience GetLevelsFromExperience(int amount) {
 		Experience experience = new Experience();
 		
-		int i = Integer.MAX_VALUE;
+		int maxInt = Integer.MAX_VALUE;
 
-        if (amount > i)
+        if (amount > maxInt)
         {
-            amount = i;
+            amount = maxInt;
         }
 
-        experience.currentLevelXp += (float)amount / (float)XpBarCap(experience.levelsHeld);
+        experience.currentLevelXp += (float)amount / (float)XpBarCap(experience.levels);
 
-        for (experience.xpHeld += amount; experience.currentLevelXp >= 1.0F; experience.currentLevelXp /= (float)XpBarCap(experience.levelsHeld))
+        for (experience.xp += amount; experience.currentLevelXp >= 1.0F; experience.currentLevelXp /= (float)XpBarCap(experience.levels))
         {
-        	experience.currentLevelXp = (experience.currentLevelXp - 1.0F) * (float)XpBarCap(experience.levelsHeld);
-        	experience.levelsHeld++;
+        	experience.currentLevelXp = (experience.currentLevelXp - 1.0F) * (float)XpBarCap(experience.levels);
+        	experience.levels++;
         }
         
 		return experience;
@@ -64,6 +64,6 @@ public class Experience{
 	
 	@Override
 	public String toString() {
-		return String.format("XpHeld: %d, LevelsHeld: %d, CurrentLevelXp: %f", this.xpHeld, this.levelsHeld, this.currentLevelXp);
+		return String.format("XpHeld: %d, LevelsHeld: %d, CurrentLevelXp: %f", this.xp, this.levels, this.currentLevelXp);
 	}
 }

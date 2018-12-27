@@ -1,11 +1,9 @@
 package net.insane96mcp.xpholder.enchantments;
 
-import io.netty.handler.codec.AsciiHeadersEncoder.NewlineType;
 import net.insane96mcp.xpholder.XpHolder;
 import net.insane96mcp.xpholder.item.EnchantablePart;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
@@ -49,12 +47,12 @@ public class EnchantmentHolder extends Enchantment {
 	
 	@Override
 	public int getMaxEnchantability(int enchantmentLevel) {
-		return 32;
+		return 17;
 	}
 	
 	@Override
 	public int getMinEnchantability(int enchantmentLevel) {
-		return 28;
+		return 13;
 	}
 	
 	@Override

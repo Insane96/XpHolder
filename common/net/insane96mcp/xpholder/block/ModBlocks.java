@@ -1,10 +1,9 @@
-package net.insane96mcp.xpholder.init;
+package net.insane96mcp.xpholder.block;
 
 import java.util.ArrayList;
 
 import net.insane96mcp.xpholder.XpHolder;
-import net.insane96mcp.xpholder.block.BlockXpHolder;
-import net.insane96mcp.xpholder.lib.Names;
+import net.insane96mcp.xpholder.lib.Strings.Names;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;

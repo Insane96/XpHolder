@@ -1,8 +1,8 @@
 package net.insane96mcp.xpholder.events;
 
 import net.insane96mcp.xpholder.XpHolder;
+import net.insane96mcp.xpholder.block.ModBlocks;
 import net.insane96mcp.xpholder.enchantments.EnchantmentHolder;
-import net.insane96mcp.xpholder.init.ModBlocks;
 import net.insane96mcp.xpholder.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

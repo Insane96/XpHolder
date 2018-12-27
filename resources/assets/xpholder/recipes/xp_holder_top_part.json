@@ -2,13 +2,13 @@
 	"type": "minecraft:crafting_shaped",
 	"pattern": [
 		"LEL",
-		"DOD",
-		" S "
+		"GOG",
+		"CDC"
 	],
 	"key": {
 		"L": {
 			"item": "minecraft:dye",
-			"data": 10
+			"data": 4
 		},
 		"E": {
 			"item": "minecraft:experience_bottle"
@@ -19,8 +19,12 @@
 		"O": {
 			"item": "xpholder:obsidian_container"
 		},
-		"S": {
-			"item": "minecraft:lapis_block"
+		"G": {
+			"item": "minecraft:gold_ingot"
+		},
+		"C": {
+			"item": "minecraft:dye",
+			"data": 10
 		}
 	},
 	"result": {

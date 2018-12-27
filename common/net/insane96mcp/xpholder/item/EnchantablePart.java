@@ -3,7 +3,7 @@ package net.insane96mcp.xpholder.item;
 import java.util.List;
 
 import net.insane96mcp.xpholder.enchantments.EnchantmentHolder;
-import net.insane96mcp.xpholder.lib.Translatable;
+import net.insane96mcp.xpholder.lib.Strings.Translatable;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -57,6 +57,6 @@ public class EnchantablePart extends Item {
 		if (stack.isItemEnchanted()) {
 			return 1;
 		}
-		return 16;
+		return getItemStackLimit();
 	}
 }

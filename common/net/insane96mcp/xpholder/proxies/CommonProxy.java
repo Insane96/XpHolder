@@ -1,45 +1,30 @@
 package net.insane96mcp.xpholder.proxies;
 
-import net.insane96mcp.xpholder.events.AnvilUpdate;
-import net.insane96mcp.xpholder.events.RenderGameOverlay;
-import net.insane96mcp.xpholder.init.ModBlocks;
+import net.insane96mcp.xpholder.block.ModBlocks;
+import net.insane96mcp.xpholder.capabilities.IPlayerData;
+import net.insane96mcp.xpholder.capabilities.PlayerData;
+import net.insane96mcp.xpholder.capabilities.PlayerDataStorage;
 import net.insane96mcp.xpholder.item.ModItems;
-import net.insane96mcp.xpholder.lib.Config;
-import net.insane96mcp.xpholder.lib.Properties;
-import net.insane96mcp.xpholder.network.PacketHandler;
 import net.insane96mcp.xpholder.tileentity.TileEntityXpHolder;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
-	public void PreInit(FMLPreInitializationEvent event) {
-		Config.config = new Configuration(event.getSuggestedConfigurationFile());
-		Config.SyncConfig();
-		Properties.Init();
-		
+	public void PreInit(FMLPreInitializationEvent event) {		
 		ModBlocks.Init();
 		ModItems.Init();
 	}
 	
 	public void Init(FMLInitializationEvent event) {
-		ModBlocks.PostInit();
-		MinecraftForge.EVENT_BUS.register(RenderGameOverlay.class);
-		MinecraftForge.EVENT_BUS.register(AnvilUpdate.class);
-		PacketHandler.Init();
-		
+		ModBlocks.PostInit();		
 		GameRegistry.registerTileEntity(TileEntityXpHolder.class, "XpHolder");
+		CapabilityManager.INSTANCE.register(IPlayerData.class, new PlayerDataStorage(), PlayerData.class);
 	}
 	
 	public void PostInit(FMLPostInitializationEvent event) {
-		Config.SaveConfig();
-	}
-	
-	public void openGui(int x, int y, int z) {
 		
 	}
 }

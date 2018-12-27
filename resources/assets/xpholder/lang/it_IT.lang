@@ -1,25 +1,21 @@
-tile.xpholder:xp_holder.name=Contenitore d'Exp
-item.xpholder:xp_holder_top_part.name=Pezzo di contenitore strano
-item.xpholder:xp_holder_bottom_part.name=Pezzo di contenitore strano
+tile.xpholder:xp_holder.name=Contenitore D'Esperienza
+item.xpholder:xp_holder_top_part.name=Parte Strana di Contenitore
+item.xpholder:xp_holder_bottom_part.name=Parte Strana di Contenitore
 item.xpholder:obsidian_container.name=Contenitore d'Ossidiana
 
-tooltip.xp_holder.on_destroy=Distrugendo un Contenitore d'Exp perderai il §4%f%% §rdell'esperienza contenuta
-tooltip.xp_holder.base_info=Può contenere fino a §2%d §7livelli d'esperienza
-tooltip.xp_holder.withdraw_cost=Withdraw costs §c%d §rlevel(s)
-tooltip.xp_holder.max_withdraw=(Unless you withdraw all)
-tooltip.xp_holder.withdraw=Preleva
-tooltip.xp_holder.deposit=Versa
-tooltip.xp_holder.experience=Esperienza
+xp_holder.on_destroy=Distrugendo un Contenitore d'Esperienza perderai il §4%f%% §rdell'esperienza contenuta
+xp_holder.base_info=Può contenere fino a §2%d §7livelli d'esperienza
+xp_holder.levels_stored=Livelli Immagazzinati: %d
 
-tooltip.parts.im_enchantable=Sono incantabile ... a volte
+xp_holder.im_enchantable=Sono incantabile con un po' di livelli
 
 enchantment.holder=Contenitore
 
 advancements.xpholder.xp_holder.title=Potere dell'Esperienza
 advancements.xpholder.xp_holder.description=Combina i due Strani pezzi di contenitore in un Incudine
 
-advancements.xpholder.parts.title=Strani pezzi di contenitore
-advancements.xpholder.parts.description=Crea i due strani pezzi di contenitore
+advancements.xpholder.parts.title=Strane Parti
+advancements.xpholder.parts.description=Crea le due Parti Strane di Contenitore
 
 advancements.xpholder.root.title=XP Holder Mod
 advancements.xpholder.root.description=Contiene esperienza, ovviamente ...
