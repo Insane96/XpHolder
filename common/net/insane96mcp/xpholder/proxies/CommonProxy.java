@@ -5,6 +5,7 @@ import net.insane96mcp.xpholder.capabilities.IPlayerData;
 import net.insane96mcp.xpholder.capabilities.PlayerData;
 import net.insane96mcp.xpholder.capabilities.PlayerDataStorage;
 import net.insane96mcp.xpholder.item.ModItems;
+import net.insane96mcp.xpholder.network.PacketHandler;
 import net.insane96mcp.xpholder.tileentity.TileEntityXpHolder;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -16,6 +17,8 @@ public class CommonProxy {
 	public void PreInit(FMLPreInitializationEvent event) {		
 		ModBlocks.Init();
 		ModItems.Init();
+		
+		PacketHandler.Init();
 	}
 	
 	public void Init(FMLInitializationEvent event) {
