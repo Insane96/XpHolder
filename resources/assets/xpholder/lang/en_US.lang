@@ -12,7 +12,7 @@ xp_holder.im_enchantable=I'm enchantable with a bunch of levels
 enchantment.holder=Holder
 
 advancements.xpholder.xp_holder.title=Experience Power
-advancements.xpholder.xp_holder.description=Merge the two Strange Container Parts in an Anvil
+advancements.xpholder.xp_holder.description=Merge the two Strange Container Parts in an Anvil. You can now use the XP Holder by placing it down and Right-Clicking to deposit experience or Shift-Right-Click to take it back
 
 advancements.xpholder.parts.title=Strange Container Parts
 advancements.xpholder.parts.description=Create the two Strange Container Parts
