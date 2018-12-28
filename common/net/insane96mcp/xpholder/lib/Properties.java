@@ -22,7 +22,7 @@ public class Properties {
 		public int maxLevelsHeld = 50;
 		@Name("Xp Lost on Destroy")
 		@Comment("Percentage of experience lost when an XP Holder is destroyed")
-		public float xpLostOnDestroy = 10;
+		public float xpLostOnDestroy = 5;
 		@Name("Crafting Level Cost")
 		@Comment("How much costs combining top and bottom part of the Xp Holder")
 		public int craftingLevelCost = 10;
