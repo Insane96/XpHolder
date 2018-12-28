@@ -17,7 +17,7 @@ public class XpHolder{
 	
 	public static final String MOD_ID = "xpholder";
 	public static final String MOD_NAME = "XpHolder";
-	public static final String VERSION = "2.0.1";
+	public static final String VERSION = "2.0.2";
 	public static final String RESOURCE_PREFIX = MOD_ID.toLowerCase() + ":";
 	public static final String MINECRAFT_VERSIONS = "[1.12,1.12.2]";
 	
