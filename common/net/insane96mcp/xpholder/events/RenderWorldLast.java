@@ -30,8 +30,8 @@ public class RenderWorldLast {
 		TileEntityXpHolder xpHolder = (TileEntityXpHolder) player.world.getTileEntity(pos);
 		FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
 		String text = I18n.format(Translatable.XpHolder.levelsStored, Experience.GetLevelsFromExperience(xpHolder.experience).levels);
-		//System.out.println(text + " " + rayTraceResult.getBlockPos().getX());
-		EntityRenderer.drawNameplate(fontRenderer, text, rayTraceResult.getBlockPos().getX(), rayTraceResult.getBlockPos().getY() + 1, rayTraceResult.getBlockPos().getZ(), 0, player.getPitchYaw().x, player.getPitchYaw().y, false, false);
+		//System.out.println(text + " " + rayTraceResult.getBlockPos().getX());		
+		EntityRenderer.drawNameplate(fontRenderer, text, rayTraceResult.getBlockPos().getX(), rayTraceResult.getBlockPos().getY() + 0.5f, rayTraceResult.getBlockPos().getZ(), 0, player.getPitchYaw().y, player.getPitchYaw().x, false, false);
 		
 	}
 }
