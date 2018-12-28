@@ -1,12 +1,10 @@
 package net.insane96mcp.xpholder.network;
 
 import io.netty.buffer.ByteBuf;
-import net.insane96mcp.xpholder.lib.Strings.Translatable;
+import net.insane96mcp.xpholder.block.ModBlocks;
+import net.insane96mcp.xpholder.tileentity.TileEntityXpHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -48,10 +46,10 @@ public class GetXpStored implements IMessage {
 				@Override
 				public void run() {
 					EntityPlayerSP player = Minecraft.getMinecraft().player;
-					FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
-					String text = I18n.format(Translatable.XpHolder.levelsStored, message.xpStored);
-					//System.out.println(message.xpStored + " " + message.pos);
-					EntityRenderer.drawNameplate(fontRenderer, text, message.pos.getX(), message.pos.getY() + 1, message.pos.getZ(), 0, player.getPitchYaw().x, player.getPitchYaw().y, false, false);
+					if (player.world.getBlockState(message.pos).getBlock().equals(ModBlocks.xpHolderBlock)) {
+						TileEntityXpHolder xpHolder = (TileEntityXpHolder) player.world.getTileEntity(message.pos);
+						xpHolder.experience = message.xpStored;
+					}
 				}
 			});
 			
