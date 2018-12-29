@@ -23,7 +23,6 @@ public class RegistryEventHandler {
 	//1.12 Register Items and Blocks
 	@SubscribeEvent
 	public static void RegisterBlocks(RegistryEvent.Register<Block> event) {
-		System.out.println("WTF");
 		for (Block block : ModBlocks.BLOCKS)
 			event.getRegistry().register(block);
 	}
