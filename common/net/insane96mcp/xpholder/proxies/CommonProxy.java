@@ -1,5 +1,6 @@
 package net.insane96mcp.xpholder.proxies;
 
+import net.insane96mcp.xpholder.XpHolder;
 import net.insane96mcp.xpholder.block.ModBlocks;
 import net.insane96mcp.xpholder.capabilities.IPlayerData;
 import net.insane96mcp.xpholder.capabilities.PlayerData;
@@ -20,7 +21,7 @@ public class CommonProxy {
 	
 	public void Init(FMLInitializationEvent event) {
 		ModBlocks.PostInit();		
-		GameRegistry.registerTileEntity(TileEntityXpHolder.class, "XpHolder");
+		GameRegistry.registerTileEntity(TileEntityXpHolder.class, XpHolder.RESOURCE_PREFIX + "xpholder");
 		CapabilityManager.INSTANCE.register(IPlayerData.class, new PlayerDataStorage(), PlayerData.class);
 	}
 	

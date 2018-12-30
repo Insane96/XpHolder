@@ -13,8 +13,8 @@ public class EnchantmentHolder extends Enchantment {
 	
 	protected EnchantmentHolder(Rarity rarityIn, EnumEnchantmentType typeIn, EntityEquipmentSlot[] slots) {
 		super(rarityIn, typeIn, slots);
-		this.setName("holder");
-		this.setRegistryName(XpHolder.MOD_ID + ":holder");
+		this.setName(XpHolder.RESOURCE_PREFIX + "holder");
+		this.setRegistryName(XpHolder.RESOURCE_PREFIX + "holder");
 	}
 	
 	public EnchantmentHolder() {

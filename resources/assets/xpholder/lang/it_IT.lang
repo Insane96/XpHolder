@@ -9,7 +9,7 @@ xp_holder.levels_stored=Livelli Immagazzinati: %d
 
 xp_holder.im_enchantable=Sono incantabile con un po' di livelli
 
-enchantment.holder=Contenitore
+enchantment.xpholder:holder=Contenitore
 
 advancements.xpholder.xp_holder.title=Potere dell'Esperienza
 advancements.xpholder.xp_holder.description=Combina i due Strani pezzi di contenitore in un Incudine. Ora puoi cliccare con il tasto destro sul Contenitore d'Esperienza per depositare esperienza o cliccare col tasto destro mentre accovacciato per riprenderla.

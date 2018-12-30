@@ -8,12 +8,7 @@ public class Strings {
 		public static final String OBSIDIAN_CONTAINER = "obsidian_container";
 	}
 	
-	public static class Translatable {	
-		
-		public static class General{
-			public static String shiftForMore = "translatable.general.shift_for_more";
-		}
-		
+	public static class Translatable {
 		public static class XpHolder{
 			private static String name = "xp_holder.";
 			public static String on_destroy = name + "on_destroy";

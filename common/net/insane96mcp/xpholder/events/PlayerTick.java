@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketTitle;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -28,7 +29,11 @@ public class PlayerTick {
 			return;
 		
 		EntityPlayerMP player = (EntityPlayerMP) entity;
-		RayTraceResult rayTraceResult = player.rayTrace(player.getAttributeMap().getAttributeInstance(player.REACH_DISTANCE).getAttributeValue(), 1.0f);
+		float blockReachDistance = (float) player.getAttributeMap().getAttributeInstance(EntityPlayerMP.REACH_DISTANCE).getAttributeValue();
+		Vec3d eyePosition = player.getPositionEyes(1.0f);
+        Vec3d direction = player.getLook(1.0f);
+        Vec3d vec3d = eyePosition.add(direction.x * blockReachDistance, direction.y * blockReachDistance, direction.z * blockReachDistance);
+		RayTraceResult rayTraceResult = player.world.rayTraceBlocks(eyePosition, vec3d, false, false, true);
 		if (rayTraceResult == null)
 			return;
 		BlockPos pos = rayTraceResult.getBlockPos();
