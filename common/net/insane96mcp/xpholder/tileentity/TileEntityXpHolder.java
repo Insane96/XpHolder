@@ -53,6 +53,8 @@ public class TileEntityXpHolder extends TileEntity {
 		if (world.isRemote)
 			return;
 		
+		Experience.FixPlayerExperience(player);
+		
 		int multiplier = 1 + Experience.GetLevelsFromExperience(player.experienceTotal).levels / 10;
 		amount *= multiplier;
 		

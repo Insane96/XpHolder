@@ -1,5 +1,7 @@
 package net.insane96mcp.xpholder.utils;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 public class Experience{
 	public int xp;
 	public int levels;
@@ -51,19 +53,33 @@ public class Experience{
 	
 	public static int GetExperienceFromLevel(int level) {
 		if (level > 0 && level <= 16) {
-			return level * level + 6 * level + 1;
+			return level * level + 6 * level;
 		}
 		else if (level > 16 && level <= 31) {
-			return (int) (2.5 * level * level - 40.5 * level + 361);
+			return (int) (2.5f * level * level - 40.5f * level + 360);
 		}
 		else if (level > 31){
-			return (int) (4.5 * level * level - 162.5 * level + 2221);
+			return (int) (4.5f * level * level - 162.5f * level + 2220);
 		}
 		return 0;
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("XpHeld: %d, LevelsHeld: %d, CurrentLevelXp: %f", this.xp, this.levels, this.currentLevelXp);
+		return String.format("Experience{XpHeld: %d, LevelsHeld: %d, CurrentLevelXp: %f}", this.xp, this.levels, this.currentLevelXp);
+	}
+
+	public static void FixPlayerExperience(EntityPlayer player) {
+		int xp = GetExperienceFromLevel(player.experienceLevel);
+		int xpBarCap = XpBarCap(player.experienceLevel);
+		float xpBarValue = (float) Math.floor(xpBarCap * player.experience);
+		xp += xpBarValue;
+		Experience experience = Experience.GetLevelsFromExperience(xp);
+		//System.out.println(GetExperienceFromLevel(player.experienceLevel) + " " + xpBarValue + " " + xp + " " + player.experienceTotal);
+		if (experience.xp - player.experienceTotal > -2 && experience.xp - player.experienceTotal < 2) {
+			//System.out.println("No Need To Fix");
+			return;
+		}
+		player.experienceTotal = xp;
 	}
 }
